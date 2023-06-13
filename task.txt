@@ -1,0 +1,174 @@
+1. Миграция 
+2. Регистрация (User) / + изменение name & surname
+3. Авторизация 
+4. Inserts : 1. Gategory, 2. Item, 3. Favorite, 4. Contect, 5. Review 
+5. Select for templates: 1. Home + Search 
+                         2. Favorites Page 
+                         3. Detail / Review 
+                         4. Detail  
+                         5. Contact Page
+                         6. Admin Page
+                         7. User Page
+6. Admin Panel 
+
+
+
+Регистрация и аутентификация пользователя.
+
+----- МОДЕЛЬ И ФОРМА ------
+Для регистрации нужно заполнить : 
+1. имя
+2. фамилию
+3. адрес электронной почты 
+4. пароль 
+5. повторить пароль
+
+
+------КОНТРОЛЛЕР--------
+Из формы берутся данные email и делаеться поиск по базе 
+   если нет такой записи то > успешная регистрация и перенаправление на страницу login
+   если есть такая почта то > flush сообщение что такая  почта уже зарегистрирована 
+
+
+
+Страница входа пользователя
+
+----- МОДЕЛЬ И ФОРМА ------
+Возможность войти в предварительно зарегистрированный профиль, введя:
+1. адрес электронной почты 
+2. пароль 
+перенаправление на страницу home(product)
+
+
+
+Главная страница 
+
+------КОНТРОЛЛЕР-------
+Страница со списком продуктов
+1. Изображение каждого продукта
+2. название
+3. цена
+4. скидка цена указана
+
+
+Фильтрация товара по категориям. <<<<<<<<<<<< ---------
+
+Расположен в левой части раздел категорий должен отражать количество продуктов, доступных в каждой категории
+Поиск в Base.html товары с подстрокой из названи по категориям фильтрация 
+
+
+Поиск 
+-----------КОНТРОЛЛЕР-----------
+отображает результат поиска в БД заданный в форме
+
+----------ФОРМА----------
+получаем строку
+
+---------МОДЕЛЬ---------
+передаем строку из фирмы в модель 
+делаем выборку с фильтрацией
+
+-----------КОНТРОЛЛЕР------------
+Своя Ссылка на страницу продукта на которой содержится подробная информацию о продукте.
+
+
+Для зарегестрированных пользователей достуно
+2. функция обратной связи  
+3. писать отзывы 
+4. Избранное
+
+Для все пользователей доступно 
+1. Смотрите обзоры продуктов 
+4. Смотреть отзывы 
+5. Похожие товары внизу каждого товара размещены (товары, входящие в одну категорию).
+
+
+Страница избранного
+
+1. кнопку «Добавить в избранное» на странице продукта, 
+2. кнопка посмотреть избранное 
+3. кнопка удаления продукта из списка избранное. Находиться на против каждого продукта 
+БОНУС показываеть что продукт ухе в избранном
+
+Контактная страница - обратная связь
+форма с:
+1. имя
+2. email 
+3. тема сообщения
+(отображать на странице пользователя и в вкладке на понели администратора )
+
+
+
+Панель администратора
+1. добавить продукт / категорию 
+2. изменить продукт / категорию 
+3. удалить продукт / категорию / обзор 
+4. Блокировака / разблокировка аккаунт 
+5. Удаление отзывов 
+6. все отправленные письма с формы контакта
+
+
+Должен быть в состоянии управлять запросами для продукта, категории, обзора, пользователя и контакта (список,
+редактировать, создавать, удалять)
+
+
+category 
+1. Shirts
+2. Jeans
+3. Swimwear
+4. Sleepwear
+5. Sportswear
+6. Jumpsuits
+7. Blazers
+8. Jackets
+9. Shoes
+
+
+
+
+title        Colorful Stylish Shirt 
+price        $150.00
+quantity     n
+description  Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat
+             diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem
+             magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore
+             stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum
+             diam et rebum kasd rebum.
+
+            <p>
+                Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
+                Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero
+                diam ea vero et dolore rebum, dolor rebum eirmod consetetur
+                invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd
+                ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod.
+                Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut
+                diam consetetur duo justo est, sit sanctus diam tempor aliquyam
+                eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at
+                sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr
+                sanctus eirmod takimata dolor ea invidunt.
+            </p>
+            <p>
+                Dolore magna est eirmod sanctus dolor, amet diam et eirmod et
+                ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem
+                tempor. Gubergren amet amet labore sadipscing clita clita diam
+                clita. Sea amet et sed ipsum lorem elitr et, amet et labore
+                voluptua sit rebum. Ea erat sed et diam takimata sed justo.
+                Magna takimata justo et amet magna et.
+            </p>
+category     Shirt
+
+
+title        Colorful Stylish Shirt
+price        123.00
+image        ../static/img/pr-1.webp
+quantity     
+description  
+category     Shirt
+
+
+title        Colorful Stylish Shirt
+price        123
+image        ../static/img/pr-2.webp
+quantity     
+description  
+category     Shirt
