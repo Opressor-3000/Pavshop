@@ -20,17 +20,34 @@
             <div class="col-lg-4 mb-5">
                 <div class="contact-form">
                     <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                    <form method="post" active="" name="sentMessage" id="contactForm" novalidate="novalidate">
+                        {{ login.hidden_tag() }}
                         <div class="control-group">
-                            {{ login.email(class="form-control", id="email", placeholder="Your email") }}
+                            {% if login.email.error %}
+                                {{ login.email(class='form_invalid') }}
+                                <span class="form_invalid_feedback">
+                                    {% for er in login.email.error %}
+                                    {{ er }}
+                                    {% endfor %}
+                                </span>
+                            {% else %}
+                            {{ login.email(class="form-control", placeholder="Your email") }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            {{ login.password(class="form-control", id="password", placeholder="Your password") }}
+                            {% if login.password.error %}
+                            {{ login.password(class='form_invalid') }}
+                            <span class="form_invalid_feedback">
+                                {% for er in login.password.error %}
+                                {{ er }}
+                                {% endfor %}
+                            </span>
+                        {% else %}
+                            {{ login.password(class="form-control", placeholder="Your password") }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="d-flex justify-content-center">
-                            {{ login.submit(class="btn btn-primary py-2 px-4", id="sendMessageButton") }}
+                            {{ login.submit(class="btn btn-primary py-2 px-4") }}
                         </div>
                     </form>
                 </div>

@@ -24,25 +24,34 @@
             <div class="col-lg-7 mb-5">
                 <div class="contact-form">
                     <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate"> <!--  >>>>  FORM  <<<<<    -->
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate" method="post" active=""> <!--  >>>>  FORM  <<<<<    -->
+                        {{ conform.hidden_tag()}}
                         <div class="control-group">
-                            {{ contactform.name(class="form-control", placeholder="Your Name") }}
+                            {% if conform.subject.error %}
+                            {{ reg.name(class='form_invalid') }}
+                            <span class="form_invalid_feedback">
+                                {% for er in conform.subject.error %}
+                                {{ er }}
+                                {% endfor %}
+                            </span>
+                            {% else %}
+                            {{ conform.subject(class="form-control", id="subject", placeholder="Subject") }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            {{ contactform.email(class="form-control", id="email", placeholder="Your Email") }}
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            {{ contactform.subject(class="form-control", id="subject", placeholder="Subject") }}
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            {{ connectform.message(class="form-control", rows="6", id="message", placeholder="Message") }}
+                            {% if conform.message.error %}
+                            {{ reg.name(class='form_invalid') }}
+                            <span class="form_invalid_feedback">
+                                {% for er in conform.message.error %}
+                                {{ er }}
+                                {% endfor %}
+                            </span>
+                            {% else %}
+                            {{ conform.message(class="form-control", rows="6", placeholder="Message") }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div>
-                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">{{ contactform.submit() }}</button>
+                            {{ conform.submit(class="btn btn-primary py-2 px-4") }}
                         </div>
                     </form>
                 </div>

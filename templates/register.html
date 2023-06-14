@@ -18,26 +18,70 @@
             <div class="col-lg-4 mb-5">
                 <div class="contact-form">
                     <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate" method="post" active="">
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate" method="post" active="" class="form">
                         {{ reg.hidden_tag()}}
                         <div class="control-group">
-                            {{ reg.name(class="form-control", id="name", placeholder="Full name") }}
+                            {% if reg.name.error %}
+                                {{ reg.name(class='form_invalid') }}
+                                <span class="form_invalid_feedback">
+                                    {% for er in reg.name.error %}
+                                    {{ er }}
+                                    {% endfor %}
+                                </span>
+                            {% else %}
+                            {{ reg.name() }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            {{ reg.email.lable() }}{{ registr.email(placeholder="Email", class="form-control") }}
+                            {% if reg.surname.error %}
+                                {{ reg.name(class='form_invalid') }}
+                                <span class="form_invalid_feedback">
+                                    {% for er in reg.surname.error %}
+                                    {{ er }}
+                                    {% endfor %}
+                                </span>
+                            {% else %}
+                            {{ reg.surname() }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            {{ reg.password.lable() }}{{ registr.password(placeholder="Password", class="form-control") }}
+                            {% if reg.e_mail.error %}
+                            {{ reg.name(class='form_invalid') }}
+                            <span class="form_invalid_feedback">
+                                {% for er in reg.e_mail.error %}
+                                {{ er }}
+                                {% endfor %}
+                            </span>
+                        {% else %}
+                            {{ registr.e_mail() }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            {{ reg.passconf(class="form-control", id="password", placeholder="Confirm password") }}
+                            {% if reg.password.error %}
+                            {{ reg.name(class='form_invalid') }}
+                            <span class="form_invalid_feedback">
+                                {% for er in reg.password.error %}
+                                {{ er }}
+                                {% endfor %}
+                            </span>
+                            {% else %}
+                            {{ registr.password() }}
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            {% if reg.passconf.error %}
+                            {{ reg.name(class='form_invalid') }}
+                            <span class="form_invalid_feedback">
+                                {% for er in reg.passconf.error %}
+                                {{ er }}
+                                {% endfor %}
+                            </span>
+                            {% else %}
+                            {{ reg.passconf() }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="d-flex justify-content-center">
-                            {{ reg.submit(class="btn btn-primary py-2 px-4", id="sendMessageButton") }}
+                            {{ reg.submit() }}
                         </div>
                     </form>
                 </div>

@@ -1872,6 +1872,14 @@ pre code {
   border: 0;
 }
 
+.form_invalid {
+  background: var(--red);
+}
+
+.form_invalid_feedback {
+  color: var(--red);
+}
+
 .form-control {
   display: block;
   width: 100%;

@@ -4,6 +4,7 @@ from main import db, login_manager
 from flask_login import UserMixin
 
 
+
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -40,15 +41,15 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category_name = db.Column(db.String(32), nullable=False, unique=True)
 
-    def __init__(self, category):
-        self.category = category
+    def __init__(self, category_name):
+        self.category_name = category_name
 
     def save(self):
         db.session.add(self)
         db.session.commit()
 
     def __repr__(self):
-        return self.category
+        return self.category_name
     
 
 class Item(db.Model):
@@ -57,7 +58,7 @@ class Item(db.Model):
     title = db.Column(db.String(255), nullable=False, unique=True)
     price = db.Column(db.Float, nullable=False)
     oldprice = db.Column(db.Float, default=None)
-    img = db.Column(db.String(255))
+    image = db.Column(db.String(255), nullable=False)
     quantity = db.Column(db.Integer, default=0)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     description = db.Column(db.Text)
@@ -77,6 +78,24 @@ class Item(db.Model):
 
     def __repr__(self):
         return self.item
+    
+
+class Image(db.Model):
+    __tablename__ = 'image'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    url = db.Column(db.String(255), nullable=False)
+
+    def __init__(self, item_id, url):
+        self.item_id = item_id
+        self.url = url
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return self.url
     
 
 class Favorite(db.Model):
@@ -100,8 +119,7 @@ class Favorite(db.Model):
 class Contact(db.Model):
     __tablename__ = 'contact'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     subject = db.Column(db.String(100), unique=True, nullable=False)
     message = db.Column(db.String(255), nullable=False, unique=True)
     date = db.Column(db.DateTime, default=datetime.utcnow)
@@ -140,6 +158,54 @@ class Review(db.Model):
 
     def __repr__(self):
         return self.id
+
+
+def categorydata(data):
+    for c in data:
+        cat = Category(c)
+        cat.save()
+
+
+def ncount(n, d):
+    itemdat = ('Colorful Stylish Shirt', '150.00', '200.00', f"../static/img/pr-{n}.webp", n, n, d)
+    return itemdat
+
+
+def itemdata(discript):
+   for i in range(1, 9):
+        ncoun = ncount(i, discript)
+        itmd = Item(ncoun)
+        itmd.save()
+        
+
+d =  '''<p>
+            Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
+            Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero
+            diam ea vero et dolore rebum, dolor rebum eirmod consetetur
+            invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd
+            ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod.
+            Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut
+            diam consetetur duo justo est, sit sanctus diam tempor aliquyam
+            eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at
+            sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr
+            sanctus eirmod takimata dolor ea invidunt.
+        </p>
+        <p>
+            Dolore magna est eirmod sanctus dolor, amet diam et eirmod et
+            ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem
+            tempor. Gubergren amet amet labore sadipscing clita clita diam
+            clita. Sea amet et sed ipsum lorem elitr et, amet et labore
+            voluptua sit rebum. Ea erat sed et diam takimata sed justo.
+            Magna takimata justo et amet magna et.
+        </p>'''
+catdata = ['Shirts', 'Jeans', 'Swimwear', 'Sleepwear', 'Sportswear', 'Jumpsuits', 'Blazers', 'Jackets', 'Shoes']
+
+
+def datarecord():
+    categorydata(catdata)
+    itemdata(d)
+
+# datarecord()
 
 
 # class admin(db.Model):

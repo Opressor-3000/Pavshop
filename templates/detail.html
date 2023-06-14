@@ -51,7 +51,11 @@
           <h3 class="font-weight-semi-bold">{{ detail.title }}</h3>
           <h3 class="font-weight-semi-bold mb-4">${{ detail.price }}</h3>
           <p class="mb-4">
-            {{ detail.description }}
+              Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat
+              diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem
+              magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore
+              stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum
+              diam et rebum kasd rebum.
           </p>
           <div class="d-flex align-items-center mb-4 pt-2">
             <button class="btn btn-primary px-3">  <!-- АКТИВАЦИЯ В ИЗБРАННОЕ ПО КНОПКЕ - НУЖНО РЕАЛТЗОВАТЬ ???   -->
@@ -193,7 +197,7 @@
           </div>
           <div
             class="card-footer d-flex justify-content-between bg-light border">
-            <a href="{{ url_for('detail.html')}}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+            <a href="{{ url_for('detail')}}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
           </div>
         </div>
         {% endfor %}
