@@ -37,6 +37,7 @@
                             {% else %}
                             {{ conform.subject(class="form-control", id="subject", placeholder="Subject") }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}                            
                         </div>
                         <div class="control-group">
                             {% if conform.message.error %}
@@ -49,6 +50,7 @@
                             {% else %}
                             {{ conform.message(class="form-control", rows="6", placeholder="Message") }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}
                         </div>
                         <div>
                             {{ conform.submit(class="btn btn-primary py-2 px-4") }}
@@ -76,5 +78,5 @@
     </div>
     <!-- Contact End -->
 
-{% endblock content %}
+{% endblock %}
 

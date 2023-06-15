@@ -33,6 +33,7 @@
                             {% else %}
                             {{ login.email(class="form-control", placeholder="Your email") }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}
                         </div>
                         <div class="control-group">
                             {% if login.password.error %}
@@ -45,6 +46,7 @@
                         {% else %}
                             {{ login.password(class="form-control", placeholder="Your password") }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}
                         </div>
                         <div class="d-flex justify-content-center">
                             {{ login.submit(class="btn btn-primary py-2 px-4") }}

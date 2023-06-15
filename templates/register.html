@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
@@ -31,7 +32,9 @@
                             {% else %}
                             {{ reg.name() }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}
                         </div>
+                        
                         <div class="control-group">
                             {% if reg.surname.error %}
                                 {{ reg.name(class='form_invalid') }}
@@ -43,6 +46,7 @@
                             {% else %}
                             {{ reg.surname() }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}
                         </div>
                         <div class="control-group">
                             {% if reg.e_mail.error %}
@@ -53,8 +57,9 @@
                                 {% endfor %}
                             </span>
                         {% else %}
-                            {{ registr.e_mail() }}
+                            {{ reg.e_mail() }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}
                         </div>
                         <div class="control-group">
                             {% if reg.password.error %}
@@ -65,8 +70,9 @@
                                 {% endfor %}
                             </span>
                             {% else %}
-                            {{ registr.password() }}
+                            {{ reg.password() }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}
                         </div>
                         <div class="control-group">
                             {% if reg.passconf.error %}
@@ -79,6 +85,7 @@
                             {% else %}
                             {{ reg.passconf() }}
                             <p class="help-block text-danger"></p>
+                            {% endif %}
                         </div>
                         <div class="d-flex justify-content-center">
                             {{ reg.submit() }}

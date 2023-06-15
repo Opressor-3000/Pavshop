@@ -15,17 +15,19 @@ def load_user(id):
 
 
 
-@app.route('/registr', methods=['GET', 'POST'])  # РЕГИСТРАЦИЯ <<<<<<<<<<<<<<<<<<<<<<<<<<
+@app.route('/reg', methods=['GET', 'POST'])  # РЕГИСТРАЦИЯ <<<<<<<<<<<<<<<<<<<<<<<<<<
 def registr():
-   if current_user.is_authenticated():
-      user_id = current_user.get_id()
-      favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+   # if current_user.is_authenticated():
+   #    user_id = current_user.get_id()
+   #    favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+   # else:
+   favorite = ''
    categorylist = Category.query.all()
    search = SearchForm()
-   if search:
-      result = Item.query.filter_by(title=search.word.data).all()
-      if not result:
-         return render_template('shop.html', content='no match', search=search)    
+   # if search is not None:
+   #    result = Item.query.filter_by(title=search.word.data).all()
+   #    if not result:
+   #       return render_template('shop.html', content='no match', search=search)    
    reg = RegistrateForm()
    if reg.validate_on_submit():
       checkemail = User.query.filter_by(email=reg.email.data).first()
@@ -39,20 +41,22 @@ def registr():
          except:
             db.session.rollback()
             flash('Error of enters')       
-   return render_template('registr.html', title='Register', search=search, reg=reg, favr=favorite, catlist=categorylist)
+   return render_template('register.html', title='Register', search=search, reg=reg, favr=favorite, catlist=categorylist)
 
 
 @app.route('/login', methods=['GET', 'POST'])  # LOGIN <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 def login():
-   if current_user.is_authenticated():
-      user_id = current_user.get_id()
-      favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+   # if current_user.is_authenticated():
+   #    user_id = current_user.get_id()
+   #    favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+   # else:
+   favorite = ''
    search = SearchForm()
    categorylist = Category.query.all()
-   if search:
-      result = Item.query.filter_by(title=search.word.data).all()
-      if not result:
-         return render_template('shop.html', content='no match', search=search)    
+   # if search:
+   #    result = Item.query.filter_by(title=search.word.data).all()
+   #    if not result:
+   #       return render_template('shop.html', content='no match', search=search)    
    login = LoginForm()
    if login.validate_on_submit():
       user =  User.query.filter_by(email=login.email.data).first()
@@ -64,7 +68,7 @@ def login():
          flash('Login or password is not correct')
    else:
       flash('Please fill login and password fields')
-   return render_template('login.html', title='Login', favr=favorite,  login=login, favr=favorite, catlist=categorylist)
+   return render_template('login.html', title='Login',  login=login, favr=favorite, catlist=categorylist, search=search)
 
 @app.route('/loguot', methods=['GET', 'POST'])
 @login_required
@@ -75,31 +79,35 @@ def logout():
 
 @app.route('/', methods=['GET', 'POST']) # HOME PAGE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 def shop():
-   if current_user.is_authenticated():
-      user_id = current_user.get_id()
+   # if current_user.is_authenticated():
+   #    user_id = current_user.get_id()
+   #    favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+   # else:
+   favorite = ''
    categorylist = Category.query.all()
-   favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
    search = SearchForm()
    if search:
       result = Item.query.filter_by(title=search.word.data).all()
-      if not result:
-         return render_template('shop.html', content='no match', search=search)      
-      products = Item.query.order(Item.id.desc())
+      if result:
+         return render_template('shop.html', content='no match', search=search, favr=favorite, catlist=categorylist, products=result)
+   products = Item.query.order(Item.id.desc())
    return render_template('shop.html', title='Product list', products=products, search=search, favr=favorite, catlist=categorylist)
 #  item.query.ofset().limit()
 
 
 @app.route('/<int:id>')
 def detail(id):
-   if current_user.is_authenticated():
-      user_id = current_user.get_id()
-      favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+   # if current_user.is_authenticated():
+   #    user_id = current_user.get_id()
+   #    favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+   # else:
+   favorite = ''
    categorylist = Category.query.all()
    search = SearchForm()
    if search:
       result = Item.query.filter_by(title=search.word.data).all()
-      if not result:
-         return render_template('shop.html', content='no match', search=search)    
+      if result:
+         return render_template('shop.html', content='no match', search=search, favr=favorite, catlist=categorylist, products=result)   
    detailitem = Item.query.filter_by(id).first()
    popular = Item.query.order_by(Item.createdate).limit(5)
    return render_template('detail.html', title='Detail', detail=detailitem, popular=popular, search=search, favr=favorite, catlist=categorylist)
@@ -108,17 +116,17 @@ def detail(id):
 @app.route('/contact', methods=['GET', 'POST'])
 @login_required
 def contacts():
-   if current_user.is_authenticated():
-      user_id = current_user.get_id()
-      favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
-   else:
-      favorite = 0
+   # if current_user.is_authenticated():
+   #    user_id = current_user.get_id()
+   #    favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+   # else:
+   favorite = ''
    categorylist = Category.query.all()
    search = SearchForm()
    if search:
       result = Item.query.filter_by(title=search.word.data).all()
-      if not result:
-         return render_template('shop.html', content='no match', search=search)    
+      if result:
+         return render_template('shop.html', content='no match', search=search, favr=favorite, catlist=categorylist, products=result) 
    conform = ContactForm()
    if conform.validate_on_submit():
       contact = Contact(conform.name.data, conform.email.data, conform.subject.data, conform.subject.data)
@@ -138,15 +146,16 @@ def favorites():
    if current_user.is_authenticated():
       user_id = current_user.get_id()
       favorite = Favorite.query.filter_by(user=user_id).count() # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   item.query(user_id=id).count()
+      favorites = Favorite.query.filter_by(user=user_id).all()
    else:
-      favorite = 0
+      favorite = ''
    categorylist = Category.query.all()
    search = SearchForm()
    if search:
       result = Item.query.filter_by(title=search.word.data).all()
-      if not result:
-         return render_template('shop.html', content='no match', search=search)    
-   return render_template('favorites.html', title='Favorites', search=search, favorite=favorite, catlist=categorylist)
+      if result:
+         return render_template('shop.html', content='no match', search=search, favr=favorite, catlist=categorylist, products=result) 
+   return render_template('favorites.html', title='Favorites', search=search, favr=favorite, catlist=categorylist, favorite=favorites)
 
 @login_manager.unauthorized_handler
 def unauthorized():
