@@ -1,4 +1,6 @@
-from models import Category, Item
+from main import app
+from models import *
+from main import *
 
 
 def categorydata(data):
@@ -8,14 +10,13 @@ def categorydata(data):
 
 
 def ncount(n, d):
-    itemdat = ('Colorful Stylish Shirt', '150.00', '200.00', f"../static/img/pr-{n}.webp", n, n, d)
+    itemdat = Item('Colorful Stylish Shirt', '150.00', '200.00', f"../static/img/pr-{n}.webp", n, n, d)
     return itemdat
 
 
 def itemdata(discript):
-   for i in range(1, 9):
-        ncoun = ncount(i, discript)
-        itmd = Item(ncoun)
+   for i in range(4, 9):
+        itmd = ncount(i, discript)
         itmd.save()
         
 
@@ -45,3 +46,8 @@ catdata = ['Shirts', 'Jeans', 'Swimwear', 'Sleepwear', 'Sportswear', 'Jumpsuits'
 def datarecord():
     categorydata(catdata)
     itemdata(d)
+
+with app.app_context():
+    item = Item('Colorful Stylish Sweaters pink', '200.00', '300.00', "../static/img/pr-8.webp", 3, 11, d)
+    item.save()
+    # item = Item()

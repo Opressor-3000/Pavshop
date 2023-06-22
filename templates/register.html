@@ -20,76 +20,69 @@
                 <div class="contact-form">
                     <div id="success"></div>
                     <form name="sentMessage" id="contactForm" novalidate="novalidate" method="post" active="" class="form">
-                        {{ reg.hidden_tag()}}
+                       {{ reg.csrf_token }}
                         <div class="control-group">
-                            {% if reg.name.error %}
-                                {{ reg.name(class='form_invalid') }}
+                            {{ reg.name( placeholder="Name") }}
+                            
                                 <span class="form_invalid_feedback">
                                     {% for er in reg.name.error %}
                                     {{ er }}
                                     {% endfor %}
                                 </span>
-                            {% else %}
-                            {{ reg.name() }}
+                           
                             <p class="help-block text-danger"></p>
-                            {% endif %}
+                            
                         </div>
                         
                         <div class="control-group">
-                            {% if reg.surname.error %}
-                                {{ reg.name(class='form_invalid') }}
+                            {{ reg.surname( placeholder='Surname') }}
+                            
                                 <span class="form_invalid_feedback">
                                     {% for er in reg.surname.error %}
                                     {{ er }}
                                     {% endfor %}
                                 </span>
-                            {% else %}
-                            {{ reg.surname() }}
+                            
+                            
                             <p class="help-block text-danger"></p>
-                            {% endif %}
+                            
                         </div>
                         <div class="control-group">
-                            {% if reg.e_mail.error %}
-                            {{ reg.name(class='form_invalid') }}
+                            {{ reg.e_mail( placeholder="Email") }}
+                            
                             <span class="form_invalid_feedback">
-                                {% for er in reg.e_mail.error %}
-                                {{ er }}
-                                {% endfor %}
+                        
+                            
+                                
                             </span>
-                        {% else %}
-                            {{ reg.e_mail() }}
+                        
                             <p class="help-block text-danger"></p>
-                            {% endif %}
+                            
                         </div>
                         <div class="control-group">
-                            {% if reg.password.error %}
-                            {{ reg.name(class='form_invalid') }}
+                            {{ reg.password(placeholder='password') }}
+                            
                             <span class="form_invalid_feedback">
-                                {% for er in reg.password.error %}
-                                {{ er }}
-                                {% endfor %}
+                                
+                              
                             </span>
-                            {% else %}
-                            {{ reg.password() }}
+                            
+                           
                             <p class="help-block text-danger"></p>
-                            {% endif %}
+                            
                         </div>
                         <div class="control-group">
-                            {% if reg.passconf.error %}
-                            {{ reg.name(class='form_invalid') }}
+                            {{ reg.passconf(placeholder='Confirm Password') }}
+                           
                             <span class="form_invalid_feedback">
-                                {% for er in reg.passconf.error %}
-                                {{ er }}
-                                {% endfor %}
+                              
                             </span>
-                            {% else %}
-                            {{ reg.passconf() }}
+                          
                             <p class="help-block text-danger"></p>
-                            {% endif %}
+                            
                         </div>
-                        <div class="d-flex justify-content-center">
-                            {{ reg.submit() }}
-                        </div>
+                        <button type="submit"> singup </button>
+
                     </form>
                 </div>
             </div>

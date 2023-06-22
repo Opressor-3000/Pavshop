@@ -4,7 +4,6 @@ from main import db, login_manager
 from flask_login import UserMixin
 
 
-
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -31,9 +30,9 @@ class User(UserMixin, db.Model):
     def __repr__(self):
        return self.id
     
-@login_manager.user_loader
-def get_user(user_id):
-    return User.query.get(user_id)
+# @login_manager.user_loader
+# def get_user(user_id):
+#     return User.query.get(user_id)
     
 
 class Category(db.Model):
@@ -64,10 +63,11 @@ class Item(db.Model):
     description = db.Column(db.Text)
     createdate = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, title, price, oldprice, quantity, category_id, description):
+    def __init__(self, title, price, oldprice, image, quantity, category_id, description):
         self.title = title
         self.price = price
         self.oldprice = oldprice
+        self.image = image
         self.quantity = quantity
         self.category_id = category_id
         self.description = description
@@ -124,9 +124,8 @@ class Contact(db.Model):
     message = db.Column(db.String(255), nullable=False, unique=True)
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, name, email, subject, message):
-        self.name = name
-        self.email = email
+    def __init__(self, user_id, subject, message):
+        self.user_id = user_id
         self.subject = subject
         self.message = message
 
@@ -146,6 +145,8 @@ class Review(db.Model):
     review = db.Column(db.String(255), nullable=False)
     published_at = db.Column(db.Boolean, default=True)
     pub_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+
 
     def __init__(self, user_id, item_id, review):
         self.user_id = user_id
@@ -167,14 +168,15 @@ def categorydata(data):
 
 
 def ncount(n, d):
-    itemdat = ('Colorful Stylish Shirt', '150.00', '200.00', f"../static/img/pr-{n}.webp", n, n, d)
+    itemdat = ('Colorful Stylish Shirt', 150.00, 200.00, f"../static/img/pr-{n}.webp", n, n, d)
     return itemdat
 
 
 def itemdata(discript):
    for i in range(1, 9):
-        ncoun = ncount(i, discript)
-        itmd = Item(ncoun)
+        icoun = ncount(i, discript)
+        print(icoun)
+        itmd = Item(icoun)
         itmd.save()
         
 
@@ -202,24 +204,14 @@ catdata = ['Shirts', 'Jeans', 'Swimwear', 'Sleepwear', 'Sportswear', 'Jumpsuits'
 
 
 def datarecord():
-    categorydata(catdata)
+    # item1 = Item('Colorful Stylish Shirt', )
+    # categorydata(catdata)
     itemdata(d)
 
 # datarecord()
 
 
-# class admin(db.Model):
-#     __teblename__ = 'admin'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-#     def __init__(self, user_id):
-#         self.user_id = user_id
-    
-#     def __repr__(self):
-#         return self.user_id
-
-    
+   
 
 
 

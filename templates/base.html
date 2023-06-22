@@ -91,9 +91,7 @@
              <span class="badge">0</span>
           {% else -%}
           <div class="col-lg-3 col-6 text-right">
-            <a href="{{ url_for('login')}}" class="nav-item nav-link">
-              Login
-            </a>
+            
           {% endif -%}
            </a>
          </div>
@@ -115,28 +113,29 @@
              <i class="fa fa-angle-down text-dark"></i>
            </a>
            <nav
-             class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"
-             id="navbar-vertical"
-             style="width: calc(100% - 30px); z-index: 1"
-           >
-             <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-               <div class="nav-item dropdown">
-                 <a href="#" class="nav-link" data-toggle="dropdown"
-                   >Dresses <i class="fa fa-angle-down float-right mt-1"></i
-                 ></a>
-                 <div
-                   class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0"
-                 >
-                   <a href="" class="dropdown-item">Men's Dresses</a>
-                   <a href="" class="dropdown-item">Women's Dresses</a>
-                   <a href="" class="dropdown-item">Baby's Dresses</a>
-                 </div>
-               </div>
-               {% for i in catlist %}
-               <a href="" class="nav-item nav-link">{{ i.category_name }}</a>
-               {% endfor %}
-             </div>
-           </nav>
+           class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"
+           id="navbar-vertical"
+           style="width: calc(100% - 30px); z-index: 1"
+            >
+              <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                <div class="nav-item dropdown">
+                  <a href="#" class="nav-link" data-toggle="dropdown"
+                    >Dresses <i class="fa fa-angle-down float-right mt-1"></i
+                  ></a>
+                  <div
+                    class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0"
+                  >
+                    <a href="" class="dropdown-item">Men's Dresses</a>
+                    <a href="" class="dropdown-item">Women's Dresses</a>
+                    <a href="" class="dropdown-item">Baby's Dresses</a>
+                  </div>
+                </div>
+                {% for i in catlist %}
+                <a href="{{ url_for('filter', categoryid=i.id)}}" class="nav-item nav-link">{{ i.category_name }}</a>
+                {% endfor %}
+              </div>
+            </nav>
+         
          </div>
          <div class="col-lg-9">
            <nav
@@ -169,8 +168,12 @@
                  >
                </div>
                <div class="navbar-nav ml-auto py-0">
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout')}}" class="nav-item nav-link">logout</a>
+                {% else %}
                  <a href="{{ url_for('login')}}" class="nav-item nav-link">Login</a>
                  <a href="{{ url_for('registr')}}" class="nav-item nav-link">Register</a>
+                 {% endif %}
                </div>
              </div>
            </nav>

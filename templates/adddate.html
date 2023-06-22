@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Register</h1>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Input Item of Datas</span></h2>
+        </div>
+        <div class="row justify-content-center px-xl-5">
+            <div class="col-lg-4 mb-5">
+                <div class="contact-form">
+                    <div id="success"></div>
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate" method="post" active="" class="form">
+                       {{ itemform.csrf_token }}
+                        <div class="control-group">
+                            {{ itemform.title( placeholder="title") }}
+                             <span class="form_invalid_feedback">        
+                                </span>                           
+                            <p class="help-block text-danger"></p>                            
+                        </div>                        
+                        <div class="control-group">
+                            {{ itemform.price( placeholder='price') }}
+                            <span class="form_invalid_feedback">                               
+                                </span>
+                            
+                            <p class="help-block text-danger"></p>                            
+                        </div>
+                        <div class="control-group">
+                            {{ itemform.oldprice( placeholder="old price") }}                            
+                            <span class="form_invalid_feedback">                       
+                            </span>                 
+                            <p class="help-block text-danger"></p>                            
+                        </div>
+                        <div class="control-group">
+                            {{ itemform.image(placeholder='image url') }}                            
+                            <span class="form_invalid_feedback">                        
+                            </span>                       
+                            <p class="help-block text-danger"></p>                            
+                        </div>
+                        <div class="control-group">
+                            {{ itemform.quantity(placeholder='Quantity') }}                           
+                            <span class="form_invalid_feedback">                              
+                            </span>                          
+                            <p class="help-block text-danger"></p>                            
+                        </div>
+                        <div class="control-group">
+                           {{ itemform.category(placeholder='Category number') }}                          
+                           <span class="form_invalid_feedback">                             
+                           </span>                        
+                           <p class="help-block text-danger"></p>                           
+                       </div>
+                       <div class="control-group">
+                        {{ itemform.description(placeholder='Description', class="form-control", rows="6") }}
+                       
+                        <span class="form_invalid_feedback">
+                          
+                        </span>
+                      
+                        <p class="help-block text-danger"></p>
+                        
+                    </div>
+                        {{ itemform.submit() }}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+{% endblock %}
